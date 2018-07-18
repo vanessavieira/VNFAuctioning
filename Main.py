@@ -4,7 +4,6 @@ from Auction import Auction
 
 
 def main():
-
     # Resource advertisement phase
     operator1 = Operator(num_nodes=27, num_links=37, num_vnf_services=3, services_capacity=100)
 

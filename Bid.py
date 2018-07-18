@@ -3,7 +3,6 @@ import math
 
 
 class Bid:
-
     required_service_quantity = []
     total_required_service_quantity = 0
     valuation = 0

@@ -2,7 +2,6 @@ import math
 
 
 class Auction:
-
     used_units = []
     winners = []
     prices = []
@@ -41,12 +40,12 @@ class Auction:
             print("Winner: " + str(self.winners[i].client))
 
     def compute_price_for_bids(self):
+        for j in range(self.bids[0].operator.num_services):
+            self.used_units[j] = 0
+
         for i in range(len(self.winners)):
             count_services = 0
             count_bigger_capacity = 0
-
-            for j in range(self.bids[i].operator.num_services):
-                self.used_units[j] = 0
 
             for k in range(len(self.bids)):
                 for j in range(self.bids[k].operator.num_services):
