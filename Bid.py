@@ -1,6 +1,7 @@
 from random import randint
 import math
 
+
 class Bid:
 
     required_service_quantity = []
@@ -16,21 +17,19 @@ class Bid:
         self.compute_sort_metric()
 
     def compute_service_quantity(self):
+        self.required_service_quantity = []
         for j in range(self.operator.num_services):
-            rand_quantity = randint(1, self.operator.services_capacity)
+            rand_quantity = randint(1, 30)
             self.total_required_service_quantity += rand_quantity
             self.required_service_quantity.append(rand_quantity)
 
-        print(self.required_service_quantity)
-        print(self.total_required_service_quantity)
+        print("Required service quantity: " + str(self.required_service_quantity))
 
     def compute_valuation(self):
         rand_valuation = randint(1, self.total_required_service_quantity)
         self.valuation = rand_valuation
 
-        print(self.valuation)
+        print("Valuation: " + str(self.valuation))
 
     def compute_sort_metric(self):
         self.sort_metric = self.valuation/(math.sqrt(self.total_required_service_quantity))
-
-        print(self.sort_metric)

@@ -3,24 +3,19 @@ from Operator import Operator
 from Auction import Auction
 
 
-
 def main():
-    # Resource advertisement phase
 
-    operator1 = Operator(3, 2, 2, 10)
+    # Resource advertisement phase
+    operator1 = Operator(num_nodes=27, num_links=37, num_vnf_services=3, services_capacity=100)
 
     # Bidding phase
     bids = []
-    bid1 = Bid("client1", operator1)
-    bids.append(bid1)
 
-    bid2 = Bid("client2", operator1)
-    bids.append(bid2)
+    for i in range(8):
+        bids.append(Bid("client" + str(i), operator1))
 
-    # Winner determination phase
+    # Winner determination & price computation phase
     auc = Auction(bids)
-
-    # Price computation phase
 
     # VNF instantiation phase
 
