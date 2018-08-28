@@ -4,12 +4,14 @@ from collections import deque
 def dijkstra(graph, initial):
     visited = {initial: 0}
     path = {}
+    nodes_id = []
 
-    nodes = set(graph.nodes)
+    for i in range(len(graph.nodes)):
+        nodes_id.append(graph.nodes[i].id)
 
-    while nodes:
+    while nodes_id:
         min_node = None
-        for node in nodes:
+        for node in nodes_id:
             if node in visited:
                 if min_node is None:
                     min_node = node
@@ -18,7 +20,7 @@ def dijkstra(graph, initial):
         if min_node is None:
             break
 
-        nodes.remove(min_node)
+        nodes_id.remove(min_node)
         current_weight = visited[min_node]
 
         for edge in graph.edges[min_node]:
@@ -45,6 +47,11 @@ def shortest_path(graph, origin, destination):
     full_path.appendleft(origin)
     full_path.append(destination)
 
+    for i in range(len(full_path)):
+        for j in range(len(graph.nodes)):
+            if graph.nodes[j].id == full_path[i]:
+                full_path[i] = graph.nodes[j]
+
     # return visited[destination],
     return list(full_path)
 
@@ -63,4 +70,3 @@ def shortest_path(graph, origin, destination):
 #     graph.add_edge('C', 'D', 30)
 #     graph.add_edge('D', 'C', 30)
 #
-#     print(shortest_path(graph, 'A', 'C')) # output: (25, ['A', 'B', 'D'])

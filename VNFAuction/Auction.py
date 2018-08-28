@@ -37,15 +37,15 @@ class Auction:
         for i in range(len(self.bids)):
             count_services = 0
             # TODO
-            for j in range(self.bids[i].num_total_services_request):
+            for j in range(self.bids[i].operator.num_services):
                 if (self.bids[i].required_service_quantity[j] + self.used_units[j]) <= \
                         self.bids[i].operator.service_capacity:
                     count_services += 1
 
-            if count_services == self.bids[i].num_total_services_request:
+            if count_services == self.bids[i].operator.num_services:
                 self.winners.append(self.bids[i])
 
-                for j in range(self.bids[i].num_total_services_request):
+                for j in range(self.bids[i].operator.num_services):
                     self.used_units[j] += self.bids[i].required_service_quantity[j]
 
         # for i in range(len(self.winners)):

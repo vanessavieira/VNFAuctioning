@@ -1,4 +1,6 @@
 from random import randint
+import random
+import itertools
 import math
 from Network.Dijkstra import shortest_path
 
@@ -20,7 +22,8 @@ class Bid:
         self.operator = operator
         self.topology = topology
         self.compute_bid_topology()
-        self.compute_service_quantity()
+        self.compute_vnf_service_request()
+        # self.compute_service_quantity()
         self.compute_valuation()
         self.compute_sort_metric()
 
@@ -33,37 +36,37 @@ class Bid:
 
         for i in range(len(self.topology.nodes)):
             if i == self.input_node:
-                self.input_node = self.topology.nodes[i]
+                self.input_node = self.topology.nodes[i].id
 
             if i == self.output_node:
-                self.output_node = self.topology.nodes[i]
+                self.output_node = self.topology.nodes[i].id
 
         self.shortest_node_path = shortest_path(self.topology, "" + str(self.input_node) + "", "" + str(self.output_node) + "")
 
         print(self.shortest_node_path)
         print(len(self.shortest_node_path))
 
-    def compute_service_quantity(self):
+    def compute_vnf_service_request(self):
+        num_services_requested = randint(1, 7)
+        services_to_choose = []
         self.required_service_quantity = []
-        self.bandwidth_request = len(self.shortest_node_path) - 1
-        self.nodes_request = len(self.shortest_node_path)
 
-        num_vnf_services_request = self.nodes_request * self.operator.num_vnf_services
-        if num_vnf_services_request > 7:
-            num_vnf_services = randint(1, 7)
-        else:
-            num_vnf_services = randint(1, num_vnf_services_request)
+        for i in range(len(self.shortest_node_path)):
+            services_to_choose.append(self.shortest_node_path[i].offered_services)
 
-        self.num_total_services_request = num_vnf_services + self.bandwidth_request
+        services_to_choose = list(itertools.chain(*services_to_choose))
 
-        for j in range(self.num_total_services_request):
+        print("services_to_choose: " + str(services_to_choose))
+
+        random_required_services = random.sample(services_to_choose, num_services_requested)
+        print("random_services: " + str(random_required_services))
+
+        for services in range(len(random_required_services)):
             rand_quantity = randint(1, 30)
             self.total_required_service_quantity += rand_quantity
             self.required_service_quantity.append(rand_quantity)
 
-        # print("input final " + str(input_node))
-        # print("output final " + str(output_node))
-        # print("Required service quantity: " + str(self.required_service_quantity))
+        print("Required service quantity: " + str(self.required_service_quantity))
 
     def compute_valuation(self):
         rand_valuation = randint(1, self.total_required_service_quantity)
