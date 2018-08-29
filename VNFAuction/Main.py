@@ -3,6 +3,7 @@ from VNFAuction.Operator import Operator
 from VNFAuction import Auction
 from Network.Graph import Graph
 from Network.Node import Node
+from Network.Edge import Edge
 from Network.Dijkstra import shortest_path
 
 
@@ -18,14 +19,23 @@ def create_network_topology(topology, num_vnf_services):
     topology.add_node(node3)
     topology.add_node(node4)
 
-    topology.add_edge(node1.id, node2.id, 10)
-    topology.add_edge(node2.id, node1.id, 10)
-    topology.add_edge(node1.id, node3.id, 20)
-    topology.add_edge(node3.id, node1.id, 20)
-    topology.add_edge(node2.id, node4.id, 15)
-    topology.add_edge(node4.id, node2.id, 15)
-    topology.add_edge(node3.id, node4.id, 30)
-    topology.add_edge(node4.id, node3.id, 30)
+    edge1 = Edge(from_node=node1.id, to_node=node2.id, distance=10)
+    edge2 = Edge(from_node=node2.id, to_node=node1.id, distance=10)
+    edge3 = Edge(from_node=node1.id, to_node=node3.id, distance=20)
+    edge4 = Edge(from_node=node3.id, to_node=node1.id, distance=20)
+    edge5 = Edge(from_node=node2.id, to_node=node4.id, distance=15)
+    edge6 = Edge(from_node=node4.id, to_node=node2.id, distance=15)
+    edge7 = Edge(from_node=node3.id, to_node=node4.id, distance=30)
+    edge8 = Edge(from_node=node4.id, to_node=node3.id, distance=30)
+
+    topology.add_edge(edge1)
+    topology.add_edge(edge2)
+    topology.add_edge(edge3)
+    topology.add_edge(edge4)
+    topology.add_edge(edge5)
+    topology.add_edge(edge6)
+    topology.add_edge(edge7)
+    topology.add_edge(edge8)
 
     # print(shortest_path(topology, node1.id, node4.id))
 
@@ -50,7 +60,7 @@ def main():
     create_network_topology(topology, num_vnf_services=5)
 
     # Resource advertisement phase
-    operator1 = Operator(num_nodes=4, num_links=4, num_vnf_services=5, service_capacity=100)
+    operator1 = Operator(num_nodes=4, num_links=4, num_vnf_services=5, service_capacity=100, topology=topology)
 
     # Bidding phase
     bidding(bids=bids, num_bids=num_bids, operator=operator1, topology=topology)

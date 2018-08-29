@@ -2,7 +2,7 @@ from Network.Service import Service
 
 
 class Node:
-    offered_services = []
+    vnf_services = []
 
     def __init__(self, id, num_vnf_services):
         self.id = id
@@ -10,7 +10,7 @@ class Node:
         self.compute_offered_services()
 
     def compute_offered_services(self):
-        self.offered_services = []
+        self.vnf_services = []
         for i in range(self.num_vnf_services):
-            service = Service(i, self.id)
-            self.offered_services.append(service)
+            service = Service(i, self.id, type="vnf")
+            self.vnf_services.append(service)

@@ -23,7 +23,7 @@ def dijkstra(graph, initial):
         nodes_id.remove(min_node)
         current_weight = visited[min_node]
 
-        for edge in graph.edges[min_node]:
+        for edge in graph.edge_list[min_node]:
             try:
                 weight = current_weight + graph.distances[(min_node, edge)]
             except:
@@ -54,19 +54,3 @@ def shortest_path(graph, origin, destination):
 
     # return visited[destination],
     return list(full_path)
-
-# if __name__ == '__main__':
-#     graph = Graph()
-#
-#     for node in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
-#         graph.add_node(node)
-#
-#     graph.add_edge('A', 'B', 10)
-#     graph.add_edge('B', 'A', 10)
-#     graph.add_edge('A', 'C', 20)
-#     graph.add_edge('C', 'A', 20)
-#     graph.add_edge('B', 'D', 15)
-#     graph.add_edge('D', 'B', 15)
-#     graph.add_edge('C', 'D', 30)
-#     graph.add_edge('D', 'C', 30)
-#
