@@ -22,5 +22,7 @@ class Operator:
         for i in range(len(self.topology.nodes)):
             self.services.append(self.topology.nodes[i].vnf_services)
 
+        for i in range(len(self.topology.edges)):
+            self.services.append(self.topology.edges[i].bandwidth_service)
+
         self.services = list(itertools.chain(*self.services))
-        # print("services: " + str(self.services))
