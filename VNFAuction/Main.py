@@ -8,33 +8,105 @@ from Network.Edge import Edge
 
 def create_network_topology(topology, num_vnf_services):
 
-    node1 = Node(id="A", num_vnf_services=num_vnf_services)
-    node2 = Node(id="B", num_vnf_services=num_vnf_services)
-    node3 = Node(id="C", num_vnf_services=num_vnf_services)
-    node4 = Node(id="D", num_vnf_services=num_vnf_services)
+    nodeA = Node(id="A", num_vnf_services=num_vnf_services)
+    nodeB = Node(id="B", num_vnf_services=num_vnf_services)
+    nodeC = Node(id="C", num_vnf_services=num_vnf_services)
+    nodeD = Node(id="D", num_vnf_services=num_vnf_services)
+    nodeE = Node(id="E", num_vnf_services=num_vnf_services)
+    nodeF = Node(id="F", num_vnf_services=num_vnf_services)
+    nodeG = Node(id="G", num_vnf_services=num_vnf_services)
+    nodeH = Node(id="H", num_vnf_services=num_vnf_services)
+    nodeI = Node(id="I", num_vnf_services=num_vnf_services)
+    nodeJ = Node(id="J", num_vnf_services=num_vnf_services)
 
-    topology.add_node(node1)
-    topology.add_node(node2)
-    topology.add_node(node3)
-    topology.add_node(node4)
+    topology.add_node(nodeA)
+    topology.add_node(nodeB)
+    topology.add_node(nodeC)
+    topology.add_node(nodeD)
+    topology.add_node(nodeE)
+    topology.add_node(nodeF)
+    topology.add_node(nodeG)
+    topology.add_node(nodeH)
+    topology.add_node(nodeI)
+    topology.add_node(nodeJ)
 
-    edge1 = Edge(from_node=node1, to_node=node2, distance=10)
-    edge2 = Edge(from_node=node2, to_node=node1, distance=10)
-    edge3 = Edge(from_node=node1, to_node=node3, distance=20)
-    edge4 = Edge(from_node=node3, to_node=node1, distance=20)
-    edge5 = Edge(from_node=node2, to_node=node4, distance=15)
-    edge6 = Edge(from_node=node4, to_node=node2, distance=15)
-    edge7 = Edge(from_node=node3, to_node=node4, distance=30)
-    edge8 = Edge(from_node=node4, to_node=node3, distance=30)
+    edgeAB = Edge(from_node=nodeA, to_node=nodeB, distance=10)
+    edgeBA = Edge(from_node=nodeB, to_node=nodeA, distance=10)
 
-    topology.add_edge(edge1)
-    topology.add_edge(edge2)
-    topology.add_edge(edge3)
-    topology.add_edge(edge4)
-    topology.add_edge(edge5)
-    topology.add_edge(edge6)
-    topology.add_edge(edge7)
-    topology.add_edge(edge8)
+    edgeAC = Edge(from_node=nodeA, to_node=nodeC, distance=20)
+    edgeCA = Edge(from_node=nodeC, to_node=nodeA, distance=20)
+
+    edgeBD = Edge(from_node=nodeB, to_node=nodeD, distance=15)
+    edgeDB = Edge(from_node=nodeD, to_node=nodeB, distance=15)
+
+    edgeCD = Edge(from_node=nodeC, to_node=nodeD, distance=30)
+    edgeDC = Edge(from_node=nodeD, to_node=nodeC, distance=30)
+
+    edgeDE = Edge(from_node=nodeD, to_node=nodeE, distance=10)
+    edgeED = Edge(from_node=nodeE, to_node=nodeD, distance=10)
+
+    edgeDG = Edge(from_node=nodeD, to_node=nodeG, distance=10)
+    edgeGD = Edge(from_node=nodeG, to_node=nodeD, distance=10)
+
+    edgeEF = Edge(from_node=nodeE, to_node=nodeF, distance=20)
+    edgeFE = Edge(from_node=nodeF, to_node=nodeE, distance=20)
+
+    edgeFG = Edge(from_node=nodeF, to_node=nodeG, distance=15)
+    edgeGF = Edge(from_node=nodeG, to_node=nodeF, distance=15)
+
+    edgeGJ = Edge(from_node=nodeG, to_node=nodeJ, distance=10)
+    edgeJG = Edge(from_node=nodeJ, to_node=nodeG, distance=10)
+
+    edgeDI = Edge(from_node=nodeD, to_node=nodeI, distance=20)
+    edgeID = Edge(from_node=nodeI, to_node=nodeD, distance=20)
+
+    edgeCI = Edge(from_node=nodeC, to_node=nodeI, distance=5)
+    edgeIC = Edge(from_node=nodeI, to_node=nodeC, distance=5)
+
+    edgeAH = Edge(from_node=nodeA, to_node=nodeH, distance=5)
+    edgeHA = Edge(from_node=nodeH, to_node=nodeA, distance=5)
+
+    edgeHI = Edge(from_node=nodeH, to_node=nodeI, distance=10)
+    edgeIH = Edge(from_node=nodeI, to_node=nodeH, distance=10)
+
+    topology.add_edge(edgeAB)
+    topology.add_edge(edgeBA)
+
+    topology.add_edge(edgeAC)
+    topology.add_edge(edgeCA)
+
+    topology.add_edge(edgeBD)
+    topology.add_edge(edgeDB)
+
+    topology.add_edge(edgeCD)
+    topology.add_edge(edgeDC)
+
+    topology.add_edge(edgeDE)
+    topology.add_edge(edgeED)
+
+    topology.add_edge(edgeDG)
+    topology.add_edge(edgeGD)
+
+    topology.add_edge(edgeEF)
+    topology.add_edge(edgeFE)
+
+    topology.add_edge(edgeFG)
+    topology.add_edge(edgeGF)
+
+    topology.add_edge(edgeGJ)
+    topology.add_edge(edgeJG)
+
+    topology.add_edge(edgeDI)
+    topology.add_edge(edgeID)
+
+    topology.add_edge(edgeCI)
+    topology.add_edge(edgeIC)
+
+    topology.add_edge(edgeAH)
+    topology.add_edge(edgeHA)
+
+    topology.add_edge(edgeHI)
+    topology.add_edge(edgeIH)
 
 
 def bidding(bids, num_bids, operator, topology):
@@ -54,10 +126,10 @@ def main():
     topology = Graph()
 
     # Create network topology
-    create_network_topology(topology, num_vnf_services=5)
+    create_network_topology(topology, num_vnf_services=3)
 
     # Resource advertisement phase
-    operator1 = Operator(num_nodes=4, num_links=4, num_vnf_services=5, service_capacity=100, topology=topology)
+    operator1 = Operator(num_nodes=13, num_links=10, num_vnf_services=3, service_capacity=100, topology=topology)
 
     # Bidding phase
     bidding(bids=bids, num_bids=num_bids, operator=operator1, topology=topology)

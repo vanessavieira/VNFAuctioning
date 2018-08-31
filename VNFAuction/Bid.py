@@ -16,6 +16,7 @@ class Bid:
     num_total_services_request = 0
     required_services = []
     services_to_choose = []
+    price_to_pay = []
 
     def __init__(self, client, operator, topology):
         self.client = client
@@ -47,7 +48,7 @@ class Bid:
 
     def compute_vnf_service_request(self):
         self.services_to_choose = []
-        num_services_requested = randint(1, 7)
+        num_services_requested = randint(1, 6)
 
         for i in range(len(self.shortest_node_path)):
             self.services_to_choose.append(self.shortest_node_path[i].vnf_services)
