@@ -121,15 +121,15 @@ def auctioning(bids, operator):
 
 def main():
 
-    num_bids = 100
+    num_bids = 250
     bids = []
     topology = Graph()
 
     # Create network topology
-    create_network_topology(topology, num_vnf_services=3)
+    create_network_topology(topology, num_vnf_services=5)
 
     # Resource advertisement phase
-    operator1 = Operator(num_nodes=13, num_links=10, num_vnf_services=3, service_capacity=100, topology=topology)
+    operator1 = Operator(num_nodes=13, num_links=10, num_vnf_services=5, service_capacity=100, topology=topology)
 
     # Bidding phase
     bidding(bids=bids, num_bids=num_bids, operator=operator1, topology=topology)

@@ -59,7 +59,7 @@ class Bid:
 
         # vnf services
         self.required_services = random.sample(self.services_to_choose, num_services_requested)
-        print("chosen vnf services: " + str(self.required_services))
+        print("chosen vnf services: " + str(self.required_services.__str__()))
 
     def compute_bandwidth_service_request(self):
         path_nodes = []
@@ -90,7 +90,8 @@ class Bid:
         rand_valuation = randint(1, self.total_required_service_quantity)
         self.valuation = rand_valuation
 
-        print("Valuation: " + str(self.valuation) + "\n")
+        print("Valuation: " + str(self.valuation))
+        print("Total required service quantity: " + str(self.total_required_service_quantity) + "\n")
 
     def compute_sort_metric(self):
         self.sort_metric = self.valuation/(math.sqrt(self.total_required_service_quantity))

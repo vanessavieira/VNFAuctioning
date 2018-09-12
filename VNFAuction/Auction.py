@@ -28,11 +28,12 @@ class Auction:
 
     def compute_ordered_bids(self):
         self.bids.sort(key=lambda x: x.sort_metric, reverse=True)
+        for i in range(len(self.bids)):
+            print(self.bids[i].client)
 
     def compute_winning_bids(self):
 
         for i in range(len(self.bids)):
-            self.bids[i].price_to_pay = 0
             num_services = len(self.bids[i].required_services)
 
             count_services = 0
@@ -53,51 +54,58 @@ class Auction:
         print("\n")
 
     def compute_price_for_bids(self):
+        for winner in self.winners:
+            winner.price_to_pay = winner.valuation
 
         for i in range(len(self.winners)):
-            self.winners[i].price_to_pay = self.winners[i].valuation
 
-        for i in range(len(self.winners)):
             count_services = 0
-            count_bigger_capacity = 0
-            price = 0
 
             for j in range(len(self.services)):
                 self.services[j].used_units = 0
 
-            for k in range(len(self.bids_unordered)):
-                if k == i:
+            # Auction without winner i
+
+            for k in range(len(self.winners)):
+                count_bigger_capacity = 0
+
+                # print("k: " + str(k) + " i:" + str(i))
+
+                if k <= i:
                     continue
 
-                if count_bigger_capacity > 0:
-                    count_bigger_capacity = 0
-                    break
-
-                num_services = len(self.bids_unordered[k].required_services)
+                num_services = len(self.winners[k].required_services)
 
                 for service in range(num_services):
-                    if (self.bids_unordered[k].required_service_quantity[service] +
-                            self.bids_unordered[k].required_services[service].used_units)\
-                            <= self.bids_unordered[k].operator.service_capacity:
+                    if self.winners[k].required_service_quantity[service] +\
+                            self.winners[k].required_services[service].used_units\
+                            <= self.winners[k].operator.service_capacity:
                         count_services += 1
 
                 if count_services == num_services:
                     for service in range(num_services):
-                        self.bids_unordered[k].required_services[service].used_units += \
-                            self.bids_unordered[k].required_service_quantity[service]
+                        self.winners[k].required_services[service].used_units += \
+                            self.winners[k].required_service_quantity[service]
 
                 for j in range(len(self.winners[i].required_services)):
                     if(self.winners[i].required_service_quantity[j] + self.winners[i].required_services[j].used_units) >= \
                             self.winners[i].operator.service_capacity:
                         count_bigger_capacity += 1
 
-                    if count_bigger_capacity > 0:
-                        price = (self.bids_unordered[k].valuation * math.sqrt(self.winners[i].total_required_service_quantity)) / \
-                                math.sqrt(self.bids_unordered[k].total_required_service_quantity)
+                        price = (self.winners[k].valuation * math.sqrt(self.winners[i].total_required_service_quantity)) / \
+                                math.sqrt(self.winners[k].total_required_service_quantity)
+
                         self.winners[i].price_to_pay = price
+
+                        # print("winner: " + str(self.winners[i].client) + "; ordem i: " + str(i) + "; ordem k: " + str(k))
+
                         self.prices.append(price)
                         break
 
+                if count_bigger_capacity > 0:
+                    break
+
+        print("\n")
         for i in range(len(self.winners)):
             print("Price " + str(self.winners[i].client) + ": " + str(self.winners[i].price_to_pay))
             # print("price: " + str(self.prices[i]))
